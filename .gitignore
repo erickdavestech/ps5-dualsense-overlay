@@ -1,0 +1,26 @@
+# Build output
+/build*/
+/dist/
+/RESOLVED_BUILD_DEPENDENCIES.txt
+
+# Compiled payloads and objects (published as GitHub Releases, never committed)
+*.elf
+*.o
+*.so
+*.plugin
+
+# Fetched dependencies (scripts/prepare_ps5_deps.sh)
+/.deps/
+/deps/
+/ps5-payload-sdk/
+
+# Local scripts and notes
+/*.ps1
+
+# Editor, OS and Python
+__pycache__/
+*.pyc
+*.bak
+*.bak-*
+.DS_Store
+Thumbs.db

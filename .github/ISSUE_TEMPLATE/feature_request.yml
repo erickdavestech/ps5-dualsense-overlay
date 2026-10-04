@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an improvement to the overlay.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Use case
+      description: What would you like to do that the overlay does not support yet?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How you imagine it working.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Console, system software, screenshots or anything else that helps.

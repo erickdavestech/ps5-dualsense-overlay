@@ -1,0 +1,57 @@
+name: Bug report
+description: The overlay does not work or behaves unexpectedly.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before reporting, make sure a game was open and that only one copy of the overlay was loaded in this boot.
+        Security problems must be reported privately (see SECURITY.md), not here.
+  - type: input
+    id: version
+    attributes:
+      label: Overlay version
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: format
+    attributes:
+      label: File used
+      options:
+        - ELF
+        - etaHEN plugin
+    validations:
+      required: true
+  - type: input
+    id: console
+    attributes:
+      label: Console model and system software
+      placeholder: CFI-2015, 13.60
+    validations:
+      required: true
+  - type: input
+    id: loader
+    attributes:
+      label: Homebrew enabler and payload loader
+      placeholder: kstuff-lite + ELF loader on 9021
+    validations:
+      required: true
+  - type: input
+    id: game
+    attributes:
+      label: Game
+      placeholder: Title and title ID if known
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: Steps to reproduce, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Renderer log
+      description: Contents of /system_tmp/padoverlay_shellui.log, if you can read it.
+      render: text
