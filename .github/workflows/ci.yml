@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  host-tests:
+    name: Host tests
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang-18
+
+      - name: Configure
+        run: cmake -S . -B build-host -DCMAKE_BUILD_TYPE=Release
+        env:
+          CC: clang-18
+          CXX: clang++-18
+
+      - name: Build
+        run: cmake --build build-host -j2
+
+      - name: Test
+        run: ctest --test-dir build-host --output-on-failure
+
+      - name: Upstream source gate
+        run: python3 tools/check_v1_source_gate.py
+
+      - name: Plugin wrapper test
+        run: python3 tests/test_plugin_wrapper.py
+
+  ps5-build:
+    name: PS5 build
+    runs-on: ubuntu-24.04
+    needs: host-tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install host dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git wget unzip cmake meson pkg-config \
+            python3 python3-pyelftools \
+            clang-18 lld-18 xxd
+
+      - name: Prepare pinned dependencies
+        run: bash ./scripts/prepare_ps5_deps.sh
+
+      - name: Build and verify
+        run: bash ./scripts/ps5_source_build.sh
+
+      - name: Publish checksums
+        run: |
+          {
+            echo "### Build checksums"
+            echo '```text'
+            cat dist/SHA256SUMS.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload build
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ps5-dualsense-overlay-${{ github.sha }}
+          path: |
+            dist/Common_FPS_PS5_v1.2.1.elf
+            dist/Common_FPS_PS5_etaHEN_v1.2.1.plugin
+            dist/Common_FPS_ShellUI_v1.2.1.elf
+            dist/SHA256SUMS.txt
+            RESOLVED_BUILD_DEPENDENCIES.txt
+          if-no-files-found: error
+          retention-days: 30

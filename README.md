@@ -2,6 +2,7 @@
 
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/erickdavestech/ps5-dualsense-overlay)](https://github.com/erickdavestech/ps5-dualsense-overlay/releases/latest)
+[![CI](https://github.com/erickdavestech/ps5-dualsense-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/erickdavestech/ps5-dualsense-overlay/actions/workflows/ci.yml)
 
 On-screen **DualSense controller overlay** for a PlayStation 5 running homebrew. A single payload
 runs entirely on the console and draws the controller over the running game, lighting up buttons,

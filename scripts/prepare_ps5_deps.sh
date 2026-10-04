@@ -3,16 +3,16 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEPS="${ROOT}/.deps"
-SDK_ZIP="/tmp/ps5-payload-sdk-v0.41.zip"
+SDK_ZIP="/tmp/ps5-payload-sdk-v0.43.zip"
 
 ETAHEN_VERSION="2.4B"
 ETAHEN_COMMIT="d47f99bd37f349ae59b3c4b66e09e93ba69f56cd"
 
 mkdir -p "${DEPS}"
 
-echo "[1/4] PS5 Payload SDK v0.41"
+echo "[1/4] PS5 Payload SDK v0.43"
 wget -q \
-  https://github.com/ps5-payload-dev/sdk/releases/download/v0.41/ps5-payload-sdk.zip \
+  https://github.com/ps5-payload-dev/sdk/releases/download/v0.43/ps5-payload-sdk.zip \
   -O "${SDK_ZIP}"
 
 sudo rm -rf /opt/ps5-payload-sdk
@@ -41,7 +41,7 @@ git clone -q --branch v0.20 --depth 1 \
 
 echo "[4/4] Record exact resolved revisions"
 {
-  echo "PS5 Payload SDK: v0.41"
+  echo "PS5 Payload SDK: v0.43"
   echo "etaHEN: ${RESOLVED_ETAHEN} (${ETAHEN_VERSION})"
   echo "shsrv: $(git -C "${DEPS}/shsrv" rev-parse HEAD)"
 } > "${ROOT}/RESOLVED_BUILD_DEPENDENCIES.txt"

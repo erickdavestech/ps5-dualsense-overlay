@@ -49,5 +49,6 @@ includes `SHA256SUMS.txt`; check the file before loading it:
 sha256sum -c SHA256SUMS.txt
 ```
 
-Release tags (`v*`) are protected against deletion and modification, and every release can be rebuilt
-from its tag to obtain the same binary (see [BUILDING.md](BUILDING.md)).
+Release tags (`v*`) are protected against deletion and modification, commits on `main` are signed and
+show as **Verified** on GitHub, and every release can be rebuilt from source to obtain the same binary
+(see [BUILDING.md](BUILDING.md)).

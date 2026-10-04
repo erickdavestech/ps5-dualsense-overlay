@@ -1,11 +1,11 @@
 {
-  "project": "Common FPS for PS5",
-  "version": "1.1.0",
+  "project": "ps5-dualsense-overlay",
+  "version": "1.0.0",
   "license": "GPL-3.0-or-later",
   "ps5_payload_sdk": {
     "repository": "https://github.com/ps5-payload-dev/sdk",
-    "version": "v0.41",
-    "commit": "d2e2e58",
+    "version": "v0.43",
+    "commit": "d9c9519",
     "purpose": "PS5 payload toolchain and system libraries"
   },
   "etahen": {

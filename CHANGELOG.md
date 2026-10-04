@@ -11,9 +11,13 @@ All notable changes to this project are documented in this file. The format foll
 - Screenshots of the overlay in the README, with attribution to the games shown.
 - Security policy with response times, coordinated disclosure and download verification; code owners
   file.
+- Continuous integration: host tests, upstream source gate, plugin wrapper test and the PS5 build with
+  release verification on every push and pull request; Dependabot updates for the pinned actions.
 
 ### Changed
 
+- The dependency script and `DEPENDENCIES.lock.json` pin PS5 payload SDK v0.43, the version used to
+  build the releases.
 - Usage documentation simplified to loading the `.elf` with a payload manager, through its web portal
   or from a USB drive. Releases ship the `.elf` only.
 - Documented that the overlay must not run together with Common FPS or SimpleFPS.

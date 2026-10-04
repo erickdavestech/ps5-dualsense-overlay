@@ -16,9 +16,10 @@ identity and the release verifier.
 bash ./scripts/prepare_ps5_deps.sh
 ```
 
-The script installs the PS5 payload SDK pinned by upstream (v0.41) into `/opt/ps5-payload-sdk`
-(it uses `sudo`) and clones the exact etaHEN and shsrv commits listed in `DEPENDENCIES.lock.json` into
-`.deps/`. If you already have an SDK installed, export `PS5_PAYLOAD_SDK` and skip the SDK step.
+The script installs PS5 payload SDK v0.43 — the version used to build the releases — into
+`/opt/ps5-payload-sdk` (it uses `sudo`) and clones the exact etaHEN and shsrv commits listed in
+`DEPENDENCIES.lock.json` into `.deps/`. If you already have SDK v0.43 installed, export
+`PS5_PAYLOAD_SDK` and skip the SDK step.
 
 ## 2. Build the payloads
 
@@ -64,12 +65,22 @@ Requires Pillow and Google Chrome or Chromium (headless). It regenerates `assets
 `assets/layout.json` and the embedded sprite tables in `src/ps5/shellui_payload/` from the source SVGs
 in `assets/source/`. `assets/preview.html` shows the result on a PC.
 
+## Continuous integration
+
+Every push to `main` and every pull request runs [`.github/workflows/ci.yml`](.github/workflows/ci.yml):
+host tests, the upstream source gate, the plugin wrapper test and the full PS5 build with
+`tools/verify_release.py`. Each run publishes the build checksums in its summary and attaches the build
+as an artifact.
+
 ## Reproducing a release
 
-Release v1.0.0 was built from its tag with ps5-payload-sdk v0.43 and the etaHEN and shsrv commits
-pinned in `DEPENDENCIES.lock.json`. Building the tag with the same SDK produces a controller ELF with the
-SHA-256 published in the release's `SHA256SUMS.txt`:
+Release v1.0.0 was built with ps5-payload-sdk v0.43 and the etaHEN and shsrv commits pinned in
+`DEPENDENCIES.lock.json`. Following the steps above from a clean checkout produces a controller ELF
+identical to the published one:
 
 ```bash
 sha256sum dist/Common_FPS_PS5_v1.2.1.elf
 ```
+
+Compare the result with the release's `SHA256SUMS.txt`. The dependency script at the `v1.0.0` tag still
+points to SDK v0.41; when building that tag, install SDK v0.43 and export `PS5_PAYLOAD_SDK` first.
