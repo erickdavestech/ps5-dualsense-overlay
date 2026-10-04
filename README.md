@@ -14,19 +14,9 @@ sticks, triggers and the touchpad in real time.
 
 ## Download
 
-Every release contains:
-
-| File | Use it when |
-|---|---|
-| `ps5-dualsense-overlay-<version>.elf` | You load payloads with an ELF loader (for example `elfldr` on port 9021). |
-| `ps5-dualsense-overlay-<version>.plugin` | You use etaHEN and want the overlay loaded automatically on every boot. |
-| `SHA256SUMS.txt` | Checksums to verify both files. |
-
-Verify the download before using it:
-
-```bash
-sha256sum -c SHA256SUMS.txt
-```
+Get `ps5-dualsense-overlay-<version>.elf` from the
+[latest release](https://github.com/erickdavestech/ps5-dualsense-overlay/releases/latest). The
+release also includes `SHA256SUMS.txt` to verify the file.
 
 ## Features
 
@@ -48,33 +38,17 @@ sha256sum -c SHA256SUMS.txt
 | PS5 | 11.xx – 13.50 | Allowed by the code, not tested |
 | PS5 | 10.xx and earlier | Code paths inherited from upstream, not tested with this overlay |
 
-Tested with kstuff-lite and the ELF loader on port 9021. Other homebrew enablers may work but have not
-been tested.
+Tested with kstuff-lite, loading the `.elf` through the payload manager's web portal. Other homebrew
+enablers may work but have not been tested.
 
 ## Usage
 
-1. Boot the console and start your homebrew enabler as usual.
-2. Load the overlay **once**:
-   - **ELF** — send it to your ELF loader. From Linux, macOS or WSL:
-
-     ```bash
-     cat ps5-dualsense-overlay-v1.0.0.elf > /dev/tcp/<PS5-IP>/9021
-     ```
-
-     From Windows PowerShell:
-
-     ```powershell
-     $b = [IO.File]::ReadAllBytes("ps5-dualsense-overlay-v1.0.0.elf")
-     $c = New-Object Net.Sockets.TcpClient("<PS5-IP>", 9021); $s = $c.GetStream()
-     $s.Write($b, 0, $b.Length); $s.Flush(); $c.Close()
-     ```
-
-   - **etaHEN plugin** — copy the `.plugin` file to `/data/etaHEN/plugins/` (or to `etahen/plugins/`
-     on a USB drive) and restart etaHEN.
+1. Jailbreak the console as usual (tested with kstuff-lite).
+2. From a PC or phone on the same network, open your payload manager's web portal using the console's
+   local IP and upload `ps5-dualsense-overlay-<version>.elf`.
 3. Open any game. The controller appears in the bottom-left corner.
 
-Load only **one** copy per boot. Loading a second copy on top of a running one makes both fight over
-the system UI and can end in a *System Software Error*. To update, reboot and load the new version.
+Load it only **once** per boot. To update, reboot and load the new version.
 
 ## Troubleshooting
 

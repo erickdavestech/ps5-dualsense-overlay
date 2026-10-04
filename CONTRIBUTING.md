@@ -9,7 +9,7 @@ By participating you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 Open an issue with the **Bug report** template and include:
 
-- the overlay version and whether you used the `.elf` or the `.plugin`;
+- the overlay version;
 - console model and exact system software version;
 - homebrew enabler and payload loader;
 - the game you were running;

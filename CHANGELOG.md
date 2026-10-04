@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file. The format foll
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Usage documentation simplified to one method: upload the `.elf` through the payload manager's web
+  portal. Releases ship the `.elf` only.
+
 ## [1.0.0] - 2026-10-03
 
 First public release. Based on Common FPS for PS5 v1.2.1 by porhe911 with the SimpleFPS patch by
