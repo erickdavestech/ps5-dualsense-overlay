@@ -9,6 +9,8 @@ All notable changes to this project are documented in this file. The format foll
 ### Added
 
 - Screenshots of the overlay in the README, with attribution to the games shown.
+- Security policy with response times, coordinated disclosure and download verification; code owners
+  file.
 
 ### Changed
 
