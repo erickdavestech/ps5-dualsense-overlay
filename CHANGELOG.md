@@ -12,8 +12,9 @@ All notable changes to this project are documented in this file. The format foll
 
 ### Changed
 
-- Usage documentation simplified to one method: upload the `.elf` through the payload manager's web
-  portal. Releases ship the `.elf` only.
+- Usage documentation simplified to loading the `.elf` with a payload manager, through its web portal
+  or from a USB drive. Releases ship the `.elf` only.
+- Documented that the overlay must not run together with Common FPS or SimpleFPS.
 
 ## [1.0.0] - 2026-10-03
 

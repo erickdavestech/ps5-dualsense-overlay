@@ -25,7 +25,7 @@ body:
     id: loader
     attributes:
       label: Homebrew enabler and payload loader
-      placeholder: kstuff-lite + payload manager web portal
+      placeholder: kstuff-lite + payload manager (web portal or USB)
     validations:
       required: true
   - type: input

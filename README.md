@@ -54,18 +54,22 @@ enablers may work but have not been tested.
 ## Usage
 
 1. Jailbreak the console as usual (tested with kstuff-lite).
-2. From a PC or phone on the same network, open your payload manager's web portal using the console's
-   local IP and upload `ps5-dualsense-overlay-<version>.elf`.
+2. Load `ps5-dualsense-overlay-<version>.elf` with your payload manager, in either of these ways:
+   - **Web portal:** from a PC or phone on the same network, open the payload manager's portal using
+     the console's local IP and upload the `.elf`.
+   - **USB:** copy the `.elf` to a USB drive, connect it to the console and launch it from the payload
+     manager.
 3. Open any game. The controller appears in the bottom-left corner.
 
-Load it only **once** per boot. To update, reboot and load the new version.
+Load it only **once** per boot, and do not run it together with Common FPS or SimpleFPS: they inject
+into the same system process. To update, reboot and load the new version.
 
 ## Troubleshooting
 
 | Symptom | Cause and fix |
 |---|---|
 | Nothing appears | The overlay only draws while a game is in the foreground. Open a game. |
-| *System Software Error* right after loading | A second copy was loaded on top of a running one. Reboot and load it once. |
+| *System Software Error* right after loading | A second copy was loaded on top of a running one, or Common FPS / SimpleFPS is also running. Reboot and load only this overlay, once. |
 | The PS button never lights up | Expected. The system intercepts it before any application can read it. |
 | The Mute button never lights up | Expected. It is disabled, see [Known limitations](#known-limitations). |
 
