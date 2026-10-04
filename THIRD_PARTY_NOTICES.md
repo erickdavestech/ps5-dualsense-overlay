@@ -117,3 +117,10 @@ and recomposed, sticks split into movable sprites, pressed states recolored, L2/
 The original license text is kept at `assets/source/LICENSE.txt`. This artwork is **not** under
 GPL-3.0; it remains under CC BY 3.0 and must be attributed as shown in `CREDITS.md`.
 
+
+## Screenshots
+
+The images in `docs/screenshots/` show the overlay over third-party games and remain the property of their
+respective owners (*Wuchang: Fallen Feathers* © 2025 505 Games, developed by Leenzee; the gameplay image
+belongs to its respective copyright holder). They are included only to illustrate this project and are
+not licensed under GPL-3.0 or CC BY 3.0.

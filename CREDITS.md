@@ -28,6 +28,13 @@ each modified file names who modified it.
   > "PS5 Button Icons and Controls - Zacksly
   > Licensed under CC BY 3.0 - https://zacksly.itch.io"
 
+## Screenshots
+
+The images in `docs/screenshots/` show the overlay over third-party games and belong to their respective
+owners: *Wuchang: Fallen Feathers* © 2025 505 Games, developed by Leenzee (`title-screen.webp`); the
+gameplay image (`gameplay.webp`) belongs to its respective copyright holder. They are used only to
+illustrate the overlay and are not covered by this project's licenses.
+
 ## PS5 homebrew projects
 
 - **PS5 payload SDK** — John Törnblom — https://github.com/ps5-payload-dev/sdk

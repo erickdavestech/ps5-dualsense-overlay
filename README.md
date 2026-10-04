@@ -12,6 +12,16 @@ sticks, triggers and the touchpad in real time.
 
 **[Download the latest release](https://github.com/erickdavestech/ps5-dualsense-overlay/releases/latest)**
 
+## Screenshots
+
+![The DualSense overlay over the title screen of Wuchang: Fallen Feathers](docs/screenshots/title-screen.webp)
+
+![The DualSense overlay during gameplay](docs/screenshots/gameplay.webp)
+
+<sub>Game images: <i>Wuchang: Fallen Feathers</i> © 2025 505 Games, developed by Leenzee (first image); the
+second image belongs to its respective copyright holder. They are shown only to illustrate the overlay.
+This project is not affiliated with or endorsed by the game publishers.</sub>
+
 ## Download
 
 Get `ps5-dualsense-overlay-<version>.elf` from the
@@ -142,7 +152,8 @@ Bug reports and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.m
 - Controller artwork: **"PS5 Button Icons and Controls" by Zacksly**, licensed **CC BY 3.0**
   (https://zacksly.itch.io), modified — see [`assets/source/LICENSE.txt`](assets/source/LICENSE.txt).
 
-Every file keeps its copyright header and SPDX license identifier.
+Every file keeps its copyright header and SPDX license identifier. The screenshots in
+`docs/screenshots/` show third-party games and are not covered by this project's licenses.
 
 ## Legal notice
 
@@ -151,6 +162,8 @@ Every file keeps its copyright header and SPDX license identifier.
   Interactive Entertainment.
 - No Sony code, firmware, encryption keys, official SDK or game content is included. The project is
   built with the open-source PS5 payload SDK.
+- The screenshots show third-party games; those images remain the property of their respective owners
+  and are used only to illustrate this project.
 - This project does not contain or distribute any exploit, jailbreak or copy-protection circumvention
   tool, and it does not enable running unauthorized copies of software. It only runs on a console on
   which its owner has already enabled homebrew.

@@ -6,6 +6,10 @@ All notable changes to this project are documented in this file. The format foll
 
 ## [Unreleased]
 
+### Added
+
+- Screenshots of the overlay in the README, with attribution to the games shown.
+
 ### Changed
 
 - Usage documentation simplified to one method: upload the `.elf` through the payload manager's web
