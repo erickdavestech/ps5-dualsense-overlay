@@ -6,20 +6,25 @@ All notable changes to this project are documented in this file. The format foll
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-04
+
 ### Added
 
+- Periodic foreground user detection (~every 2 seconds) to automatically re-bind the DualSense controller handle when switching local accounts.
+- Automatic non-blocking retry (~30 frames / 0.5s) when acquiring controller handle on resume or before user login.
 - Screenshots of the overlay in the README, with attribution to the games shown.
-- Security policy with response times, coordinated disclosure and download verification; code owners
-  file.
-- Continuous integration: host tests, upstream source gate, plugin wrapper test and the PS5 build with
-  release verification on every push and pull request; Dependabot updates for the pinned actions.
+- Security policy with response times, coordinated disclosure and download verification; code owners file.
+- Continuous integration: host tests, upstream source gate, plugin wrapper test and the PS5 build with release verification on every push and pull request; Dependabot updates for the pinned actions.
+
+### Fixed
+
+- **Overlay freeze after Rest Mode (sleep/resume):** Fixed issue where `sceUserServiceGetForegroundUser` returning `0xffffffff` (-1) during console standby or before logging into an account caused pad initialization to permanently fail, leaving the overlay visible but unresponsive.
+- **Controller disconnect / standby recovery:** If `scePadReadState` fails for 15 consecutive frames (e.g. controller turned off, Bluetooth drop, or system suspend), the dead handle is now safely closed via `scePadClose` and re-acquired automatically.
 
 ### Changed
 
-- The dependency script and `DEPENDENCIES.lock.json` pin PS5 payload SDK v0.43, the version used to
-  build the releases.
-- Usage documentation simplified to loading the `.elf` with a payload manager, through its web portal
-  or from a USB drive. Releases ship the `.elf` only.
+- The dependency script and `DEPENDENCIES.lock.json` pin PS5 payload SDK v0.43.
+- Usage documentation simplified to loading the `.elf` with a payload manager, through its web portal or from a USB drive.
 - Documented that the overlay must not run together with Common FPS or SimpleFPS.
 
 ## [1.0.0] - 2026-10-03
@@ -69,4 +74,5 @@ khalifa007.
 - The PS button cannot be read (intercepted by the system).
 - The Mute button is disabled: the controller only reports the momentary press.
 
+[1.0.1]: https://github.com/erickdavestech/ps5-dualsense-overlay/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/erickdavestech/ps5-dualsense-overlay/releases/tag/v1.0.0

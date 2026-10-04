@@ -22,5 +22,7 @@ __pycache__/
 *.pyc
 *.bak
 *.bak-*
+*.log
+*.db
 .DS_Store
 Thumbs.db

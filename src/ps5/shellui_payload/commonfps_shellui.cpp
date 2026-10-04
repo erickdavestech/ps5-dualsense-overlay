@@ -13,6 +13,7 @@
 
 extern "C" {
 int scePadOpen(int user_id, int type, int index, const void* param);
+int scePadClose(int handle);
 int scePadGetHandle(int user_id, int type, int index);
 int scePadReadState(int handle, void* data);
 int sceUserServiceGetForegroundUser(int* user_id);
@@ -132,6 +133,7 @@ std::uint32_t g_h_trig[2]{};
 std::uint32_t g_h_touch{};
 int g_pad_handle = -1;
 int g_pad_init_state = 0;
+int g_pad_user = -1;
 MonoMethod* g_find_scene_method{};
 bool g_background_render_mode = false;
 
@@ -1090,28 +1092,74 @@ struct pad_state_t {
 
 bool pad_read(pad_state_t* s) {
     s->valid = false;
-    if (g_pad_init_state == 0) {
-        g_pad_init_state = -1;
+    static int retry_cooldown = 0;
+    static int consecutive_read_failures = 0;
+
+    if (g_pad_init_state != 1) {
+        if (++retry_cooldown < 30) {
+            return false;
+        }
+        retry_cooldown = 0;
+
         int user = -1;
         int rc = sceUserServiceGetForegroundUser(&user);
-        log_line("pad init: GetForegroundUser rc=0x%x user=0x%x", rc, user);
+        if (rc < 0 || user == -1 || static_cast<std::uint32_t>(user) == 0xffffffffu) {
+            return false;
+        }
+
         int h = scePadOpen(user, 0, 0, nullptr);
-        log_line("pad init: scePadOpen -> 0x%x", h);
         if (h < 0)
             h = scePadGetHandle(user, 0, 0);
+
         if (h >= 0) {
             g_pad_handle = h;
+            g_pad_user = user;
             g_pad_init_state = 1;
-            log_line("pad init: handle OK = 0x%x", h);
+            consecutive_read_failures = 0;
+            log_line("pad init: user=0x%x handle OK = 0x%x", user, h);
+        } else {
+            static int fail_log_count = 0;
+            if (++fail_log_count <= 5) {
+                log_line("pad init retry: user=0x%x scePadOpen=0x%x", user, h);
+            }
+            return false;
         }
     }
-    if (g_pad_init_state != 1)
-        return false;
+
+    static int user_check_counter = 0;
+    if (++user_check_counter > 120) {
+        user_check_counter = 0;
+        int fg_user = -1;
+        if (sceUserServiceGetForegroundUser(&fg_user) == 0 &&
+            fg_user != -1 && static_cast<std::uint32_t>(fg_user) != 0xffffffffu &&
+            fg_user != g_pad_user) {
+            log_line("pad: foreground user changed 0x%x -> 0x%x, reopening pad", g_pad_user, fg_user);
+            if (g_pad_handle >= 0) {
+                scePadClose(g_pad_handle);
+            }
+            g_pad_handle = -1;
+            g_pad_init_state = 0;
+            return false;
+        }
+    }
 
     unsigned char raw[256];
     std::memset(raw, 0, sizeof raw);
-    if (scePadReadState(g_pad_handle, raw) < 0)
+    int read_rc = scePadReadState(g_pad_handle, raw);
+    if (read_rc < 0) {
+        if (++consecutive_read_failures > 15) {
+            log_line("pad: read failed rc=0x%x for 15 frames, resetting handle 0x%x",
+                     read_rc, g_pad_handle);
+            if (g_pad_handle >= 0) {
+                scePadClose(g_pad_handle);
+            }
+            g_pad_handle = -1;
+            g_pad_init_state = 0;
+            consecutive_read_failures = 0;
+        }
         return false;
+    }
+    consecutive_read_failures = 0;
 
     std::uint32_t buttons;
     std::int32_t connected;
